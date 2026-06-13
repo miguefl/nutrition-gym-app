@@ -1,0 +1,28 @@
+services:
+  menu:
+    build: .
+    image: gimnasio-menu:latest
+    container_name: gimnasio-menu
+    ports:
+      # Publica en TODAS las interfaces del servidor para que sea accesible
+      # desde tu LAN (y por VPN hacia tu LAN). Cambia el puerto del host con
+      # APP_PORT en el fichero .env si el 3000 está ocupado.
+      # Para limitarlo solo a la propia máquina, usa "127.0.0.1:3000:3000".
+      - "${APP_PORT:-3000}:3000"
+    environment:
+      # La clave de IA se toma de .env (o del entorno). Opcional.
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      PORT: 3000
+      HOST: 0.0.0.0
+      # Mantener en false sobre HTTP (LAN/VPN sin TLS). Poner true solo tras HTTPS.
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+    volumes:
+      # Persiste recetas, plan, registro, alias.json y auth.json en el host.
+      - ./datos:/app/datos
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3

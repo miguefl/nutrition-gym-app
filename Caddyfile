@@ -1,0 +1,23 @@
+# Reverse proxy with automatic HTTPS for the Menú PWA.
+# Caddy obtains and renews a trusted TLS certificate on its own — that valid
+# certificate is what makes the PWA installable and enables the service worker.
+#
+# Set DOMAIN (and optionally TLS_EMAIL) in your .env file. See the README for
+# public-domain vs internal-only (VPN/LAN) setups.
+
+{
+	email {$TLS_EMAIL}
+}
+
+{$DOMAIN} {
+	encode zstd gzip
+
+	# Internal-only (no public domain, accessed via LAN/VPN)? Uncomment the line
+	# below to use Caddy's local CA, then install Caddy's root certificate on each
+	# device so the cert is trusted and the PWA becomes installable:
+	#   docker compose -f docker-compose.https.yml exec caddy \
+	#     cat /data/caddy/pki/authorities/local/root.crt
+	# tls internal
+
+	reverse_proxy menu:3000
+}

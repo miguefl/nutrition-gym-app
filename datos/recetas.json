@@ -1,0 +1,345 @@
+[
+  {
+    "nombre": "Desayuno base",
+    "tipo_comida": "desayuno",
+    "ingredientes": [
+      {
+        "nombre": "Pan",
+        "cantidad": "120 g",
+        "tipo": "cereales"
+      },
+      {
+        "nombre": "Aceite de oliva",
+        "cantidad": "10 g",
+        "tipo": "grasas"
+      },
+      {
+        "nombre": "Jamón serrano",
+        "cantidad": "50 g",
+        "tipo": "carne procesada"
+      }
+    ],
+    "macros": {
+      "carbohidratos": "alto",
+      "grasas": "medio",
+      "proteinas": "medio"
+    }
+  },
+  {
+    "nombre": "Desayuno huevo y guacamole",
+    "tipo_comida": "desayuno",
+    "ingredientes": [
+      {
+        "nombre": "Pan",
+        "cantidad": "120 g",
+        "tipo": "cereales"
+      },
+      {
+        "nombre": "Huevo",
+        "cantidad": "1 unidad",
+        "tipo": "huevo"
+      },
+      {
+        "nombre": "Guacamole",
+        "cantidad": "50 g",
+        "tipo": "grasas vegetales"
+      }
+    ],
+    "macros": {
+      "carbohidratos": "alto",
+      "grasas": "medio",
+      "proteinas": "medio"
+    }
+  },
+  {
+    "nombre": "Lentejas con jamón y patata",
+    "tipo_comida": "comida",
+    "ingredientes": [
+      {
+        "nombre": "Lentejas",
+        "cantidad": "120 g",
+        "tipo": "legumbres"
+      },
+      {
+        "nombre": "Jamón serrano",
+        "cantidad": "100 g",
+        "tipo": "carne procesada"
+      },
+      {
+        "nombre": "Patata",
+        "cantidad": "200 g",
+        "tipo": "tuberculos"
+      }
+    ],
+    "macros": {
+      "carbohidratos": "alto",
+      "grasas": "medio",
+      "proteinas": "medio"
+    }
+  },
+  {
+    "nombre": "Arroz con pollo",
+    "tipo_comida": "comida",
+    "ingredientes": [
+      {
+        "nombre": "Arroz",
+        "cantidad": "100 g",
+        "tipo": "cereales"
+      },
+      {
+        "nombre": "Pollo",
+        "cantidad": "270 g",
+        "tipo": "carne blanca"
+      },
+      {
+        "nombre": "Aceite de oliva",
+        "cantidad": "10 g",
+        "tipo": "grasas"
+      }
+    ],
+    "macros": {
+      "carbohidratos": "alto",
+      "grasas": "medio",
+      "proteinas": "alto"
+    }
+  },
+  {
+    "nombre": "Merluza con patata",
+    "tipo_comida": "comida",
+    "ingredientes": [
+      {
+        "nombre": "Merluza",
+        "cantidad": "350 g",
+        "tipo": "pescado blanco"
+      },
+      {
+        "nombre": "Patata",
+        "cantidad": "350 g",
+        "tipo": "tuberculos"
+      },
+      {
+        "nombre": "Aceite de oliva",
+        "cantidad": "15 g",
+        "tipo": "grasas"
+      }
+    ],
+    "macros": {
+      "carbohidratos": "alto",
+      "grasas": "medio",
+      "proteinas": "alto"
+    }
+  },
+  {
+    "nombre": "Cocido light",
+    "tipo_comida": "comida",
+    "ingredientes": [
+      {
+        "nombre": "Garbanzos",
+        "cantidad": "100 g",
+        "tipo": "legumbres"
+      },
+      {
+        "nombre": "Patata",
+        "cantidad": "200 g",
+        "tipo": "tuberculos"
+      },
+      {
+        "nombre": "Pollo",
+        "cantidad": "180 g",
+        "tipo": "carne blanca"
+      },
+      {
+        "nombre": "Jamón serrano",
+        "cantidad": "60 g",
+        "tipo": "carne procesada"
+      }
+    ],
+    "macros": {
+      "carbohidratos": "alto",
+      "grasas": "medio",
+      "proteinas": "alto"
+    }
+  },
+  {
+    "nombre": "Berenjena con carne",
+    "tipo_comida": "comida",
+    "ingredientes": [
+      {
+        "nombre": "Carne picada",
+        "cantidad": "200 g",
+        "tipo": "carne roja"
+      },
+      {
+        "nombre": "Berenjena",
+        "cantidad": "200 g",
+        "tipo": "verdura"
+      },
+      {
+        "nombre": "Parmesano",
+        "cantidad": "30 g",
+        "tipo": "lacteos grasos"
+      },
+      {
+        "nombre": "Aceite de oliva",
+        "cantidad": "10 g",
+        "tipo": "grasas"
+      }
+    ],
+    "macros": {
+      "carbohidratos": "bajo",
+      "grasas": "alto",
+      "proteinas": "alto"
+    }
+  },
+  {
+    "nombre": "Paella de marisco",
+    "tipo_comida": "comida",
+    "ingredientes": [
+      {
+        "nombre": "Arroz",
+        "cantidad": "100 g",
+        "tipo": "cereales"
+      },
+      {
+        "nombre": "Marisco",
+        "cantidad": "300 g",
+        "tipo": "marisco"
+      }
+    ],
+    "macros": {
+      "carbohidratos": "alto",
+      "grasas": "bajo",
+      "proteinas": "alto"
+    }
+  },
+  {
+    "nombre": "Revuelto mixto",
+    "tipo_comida": "cena",
+    "ingredientes": [
+      {
+        "nombre": "Huevo",
+        "cantidad": "120 g",
+        "tipo": "huevo"
+      },
+      {
+        "nombre": "Gambas",
+        "cantidad": "200 g",
+        "tipo": "marisco"
+      },
+      {
+        "nombre": "Jamón serrano",
+        "cantidad": "80 g",
+        "tipo": "carne procesada"
+      },
+      {
+        "nombre": "Pan",
+        "cantidad": "120 g",
+        "tipo": "cereales"
+      }
+    ],
+    "macros": {
+      "carbohidratos": "alto",
+      "grasas": "medio",
+      "proteinas": "alto"
+    }
+  },
+  {
+    "nombre": "Kebab de pollo",
+    "tipo_comida": "cena",
+    "ingredientes": [
+      {
+        "nombre": "Tortilla de trigo",
+        "cantidad": "80 g",
+        "tipo": "cereales"
+      },
+      {
+        "nombre": "Carne kebab",
+        "cantidad": "150 g",
+        "tipo": "carne procesada"
+      },
+      {
+        "nombre": "Salsa",
+        "cantidad": "20 g",
+        "tipo": "grasas"
+      }
+    ],
+    "macros": {
+      "carbohidratos": "medio",
+      "grasas": "alto",
+      "proteinas": "medio"
+    }
+  },
+  {
+    "nombre": "Sandwich de pollo",
+    "tipo_comida": "cena",
+    "ingredientes": [
+      {
+        "nombre": "Pan",
+        "cantidad": "120 g",
+        "tipo": "cereales"
+      },
+      {
+        "nombre": "Pollo",
+        "cantidad": "200 g",
+        "tipo": "carne blanca"
+      },
+      {
+        "nombre": "Aguacate",
+        "cantidad": "100 g",
+        "tipo": "grasas vegetales"
+      }
+    ],
+    "macros": {
+      "carbohidratos": "alto",
+      "grasas": "medio",
+      "proteinas": "alto"
+    }
+  },
+  {
+    "nombre": "Merienda proteína y fruta",
+    "tipo_comida": "merienda",
+    "ingredientes": [
+      {
+        "nombre": "Fruta",
+        "cantidad": "200 g",
+        "tipo": "fruta"
+      },
+      {
+        "nombre": "High protein pudding",
+        "cantidad": "200 g",
+        "tipo": "lacteos proteicos"
+      }
+    ],
+    "macros": {
+      "carbohidratos": "medio",
+      "grasas": "bajo",
+      "proteinas": "medio"
+    }
+  },
+  {
+    "nombre": "Merienda queso batido con frutos rojos",
+    "tipo_comida": "merienda",
+    "ingredientes": [
+      {
+        "nombre": "Queso fresco batido 0%",
+        "cantidad": "250 g",
+        "tipo": "lacteos proteicos"
+      },
+      {
+        "nombre": "Fresa",
+        "cantidad": "150 g",
+        "tipo": "fruta"
+      },
+      {
+        "nombre": "Arándanos",
+        "cantidad": "150 g",
+        "tipo": "fruta"
+      }
+    ],
+    "macros": {
+      "carbohidratos": "medio",
+      "grasas": "bajo",
+      "proteinas": "alto"
+    }
+  }
+]

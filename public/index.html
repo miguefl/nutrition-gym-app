@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f1115" />
+  <title>Menú semanal — Recetas, validador y ajuste</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="/icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+</head>
+<body>
+  <!-- ===== LOGIN ===== -->
+  <div id="login-overlay" class="login-overlay hidden">
+    <form id="login-form" class="login-card">
+      <h1>Menú semanal</h1>
+      <p class="muted">Inicia sesión para continuar.</p>
+      <div class="field">
+        <label for="login-user">Usuario</label>
+        <input type="text" id="login-user" autocomplete="username" autocapitalize="none" required />
+      </div>
+      <div class="field">
+        <label for="login-pass">Contraseña</label>
+        <input type="password" id="login-pass" autocomplete="current-password" required />
+      </div>
+      <div id="login-error" class="status err hidden"></div>
+      <button type="submit" class="btn btn-primary" id="login-submit">Entrar</button>
+    </form>
+  </div>
+
+  <!-- ===== MODAL CAMBIAR CREDENCIALES ===== -->
+  <div id="cred-overlay" class="modal-overlay hidden">
+    <form id="cred-form" class="login-card">
+      <h2>Cambiar credenciales</h2>
+      <p class="muted">Deja en blanco lo que no quieras cambiar. Cambiar las credenciales cerrará el resto de sesiones.</p>
+      <div class="field">
+        <label for="cred-current">Contraseña actual</label>
+        <input type="password" id="cred-current" autocomplete="current-password" required />
+      </div>
+      <div class="field">
+        <label for="cred-user">Nuevo usuario (opcional)</label>
+        <input type="text" id="cred-user" autocomplete="username" autocapitalize="none" />
+      </div>
+      <div class="field">
+        <label for="cred-pass">Nueva contraseña (opcional)</label>
+        <input type="password" id="cred-pass" autocomplete="new-password" />
+      </div>
+      <div id="cred-error" class="status err hidden"></div>
+      <div class="actions">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-ghost" id="cred-cancel">Cancelar</button>
+      </div>
+    </form>
+  </div>
+
+  <header class="app-header">
+    <div class="container">
+      <div class="header-top">
+        <h1>Menú semanal</h1>
+        <div class="header-actions">
+          <a href="/api/backup" class="btn btn-ghost btn-backup" download title="Descarga todos tus datos en un JSON">⬇ Exportar datos</a>
+          <span class="account-user muted" id="account-user"></span>
+          <button type="button" class="btn btn-ghost" id="btn-cred" title="Cambiar usuario o contraseña">Cuenta</button>
+          <button type="button" class="btn btn-ghost" id="btn-logout">Salir</button>
+        </div>
+      </div>
+      <nav class="tabs" role="tablist">
+        <button class="tab active" data-tab="recipes" role="tab">Recetas</button>
+        <button class="tab" data-tab="plan" role="tab">Plan</button>
+        <button class="tab" data-tab="shopping" role="tab">Compra</button>
+        <button class="tab" data-tab="log" role="tab">Registro</button>
+        <button class="tab" data-tab="validator" role="tab">Validador</button>
+        <button class="tab" data-tab="adjust" role="tab">Ajuste</button>
+        <button class="tab" data-tab="equivalences" role="tab">Equivalencias</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ===== RECETAS ===== -->
+    <section id="tab-recipes" class="tab-panel active">
+      <div class="recipes-layout">
+        <aside class="filters">
+          <h2>Filtros</h2>
+          <div class="filter-group">
+            <label>Tipo de comida</label>
+            <div id="filter-types" class="checks"></div>
+          </div>
+          <div class="filter-group">
+            <label for="filter-ingredient">Ingrediente</label>
+            <input type="text" id="filter-ingredient" placeholder="ej. pollo" />
+          </div>
+          <div class="filter-group">
+            <label>Macros</label>
+            <div class="macro-filters">
+              <div>
+                <span>Carbs</span>
+                <select data-macro="carbohidratos">
+                  <option value="">Cualquiera</option>
+                  <option value="bajo">Bajo</option>
+                  <option value="medio">Medio</option>
+                  <option value="alto">Alto</option>
+                </select>
+              </div>
+              <div>
+                <span>Grasas</span>
+                <select data-macro="grasas">
+                  <option value="">Cualquiera</option>
+                  <option value="bajo">Bajo</option>
+                  <option value="medio">Medio</option>
+                  <option value="alto">Alto</option>
+                </select>
+              </div>
+              <div>
+                <span>Proteínas</span>
+                <select data-macro="proteinas">
+                  <option value="">Cualquiera</option>
+                  <option value="bajo">Bajo</option>
+                  <option value="medio">Medio</option>
+                  <option value="alto">Alto</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <button id="reset-filters" class="btn btn-ghost">Limpiar filtros</button>
+        </aside>
+        <div class="recipes-main">
+          <div class="recipes-header">
+            <p><span id="recipes-count">0</span> recetas</p>
+          </div>
+          <div id="recipes-grid" class="recipes-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PLAN SEMANAL ===== -->
+    <section id="tab-plan" class="tab-panel">
+      <div class="form-panel panel-full">
+        <div class="panel-header">
+          <h2>Plan semanal</h2>
+          <button type="button" class="btn btn-primary" id="plan-save">Guardar plan</button>
+        </div>
+        <p class="muted">Asigna una receta a cada comida. Solo se listan recetas del tipo correspondiente.</p>
+        <div id="plan-grid" class="plan-grid"><p class="muted">Cargando...</p></div>
+      </div>
+    </section>
+
+    <!-- ===== LISTA DE LA COMPRA ===== -->
+    <section id="tab-shopping" class="tab-panel">
+      <div class="form-panel panel-full">
+        <div class="panel-header">
+          <h2>Lista de la compra</h2>
+          <button type="button" class="btn btn-primary" id="shopping-generate">Regenerar</button>
+        </div>
+        <p class="muted">Generada a partir del plan semanal. Marca lo que ya tienes; se recuerda en este dispositivo.</p>
+        <div class="field">
+          <label>Días a incluir</label>
+          <div id="shopping-days" class="checks"></div>
+        </div>
+        <div id="shopping-list" class="result"><p class="muted">Cargando...</p></div>
+      </div>
+    </section>
+
+    <!-- ===== REGISTRO DE ADHERENCIA ===== -->
+    <section id="tab-log" class="tab-panel">
+      <div class="form-panel panel-full">
+        <div class="panel-header">
+          <h2>Registro de adherencia</h2>
+          <div class="log-nav">
+            <button type="button" class="btn btn-ghost" id="log-prev">←</button>
+            <span id="log-range" class="muted"></span>
+            <button type="button" class="btn btn-ghost" id="log-next">→</button>
+            <button type="button" class="btn btn-ghost" id="log-today">Hoy</button>
+          </div>
+        </div>
+        <p class="muted">Marca ✓ si cumpliste la comida del plan, ✗ si no. Vuelve a pulsar para desmarcar.</p>
+        <div id="log-grid" class="result"><p class="muted">Cargando...</p></div>
+      </div>
+    </section>
+
+    <!-- ===== VALIDADOR ===== -->
+    <section id="tab-validator" class="tab-panel">
+      <div class="split">
+        <div class="form-panel">
+          <h2>Validar receta</h2>
+          <p class="muted">Introduce una receta nueva y comprueba si encaja en el menú.</p>
+          <div id="v-edit-notice" class="status warn hidden"></div>
+          <form id="form-validator" class="recipe-form">
+            <div class="field">
+              <label for="v-name">Nombre</label>
+              <input type="text" id="v-name" required />
+            </div>
+            <div class="field">
+              <label for="v-type">Tipo de comida</label>
+              <select id="v-type" required>
+                <option value="desayuno">Desayuno</option>
+                <option value="comida">Comida</option>
+                <option value="merienda">Merienda</option>
+                <option value="cena">Cena</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Ingredientes</label>
+              <div id="v-ingredients" class="ingredients-list"></div>
+              <button type="button" class="btn btn-ghost" id="v-add-ing">+ Añadir ingrediente</button>
+            </div>
+            <div class="field">
+              <label>Macros (opcional, se sugieren al validar)</label>
+              <div class="macros-inputs">
+                <select id="v-m-carbs"><option value="">carbohidratos</option><option>bajo</option><option>medio</option><option>alto</option></select>
+                <select id="v-m-fats"><option value="">grasas</option><option>bajo</option><option>medio</option><option>alto</option></select>
+                <select id="v-m-proteins"><option value="">proteinas</option><option>bajo</option><option>medio</option><option>alto</option></select>
+              </div>
+            </div>
+            <div class="actions">
+              <button type="submit" class="btn btn-primary">Validar</button>
+              <button type="button" id="v-autofix" class="btn">Autocorregir cantidades</button>
+              <button type="button" id="v-save" class="btn btn-success" disabled>Guardar receta</button>
+            </div>
+          </form>
+        </div>
+        <div class="result-panel">
+          <h2>Resultado</h2>
+          <div id="v-result" class="result">
+            <p class="muted">Aún no has validado ninguna receta.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== AJUSTE ===== -->
+    <section id="tab-adjust" class="tab-panel">
+      <div class="split">
+        <div class="form-panel">
+          <h2>Ajuste de cantidades</h2>
+          <p class="muted">Indica los ingredientes que quieres usar. Te propondré las cantidades que encajan en el menú.</p>
+          <form id="form-adjust" class="recipe-form">
+            <div class="field">
+              <label for="a-type">Tipo de comida</label>
+              <select id="a-type" required>
+                <option value="desayuno">Desayuno</option>
+                <option value="comida">Comida</option>
+                <option value="merienda">Merienda</option>
+                <option value="cena">Cena</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Ingredientes (sin cantidad)</label>
+              <div id="a-ingredients" class="ingredients-list"></div>
+              <button type="button" class="btn btn-ghost" id="a-add-ing">+ Añadir ingrediente</button>
+            </div>
+            <div class="actions">
+              <button type="submit" class="btn btn-primary">Calcular cantidades</button>
+              <button type="button" class="btn" id="a-suggest-ai">Sugerir receta (IA)</button>
+            </div>
+          </form>
+        </div>
+        <div class="result-panel">
+          <h2>Propuesta</h2>
+          <div id="a-result" class="result">
+            <p class="muted">Introduce ingredientes y pulsa "Calcular".</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ===== EQUIVALENCIAS ===== -->
+    <section id="tab-equivalences" class="tab-panel">
+      <div class="split">
+        <div class="form-panel">
+          <h2>Consultar a la IA</h2>
+          <p class="muted">Si un alimento no está en la lista, pídele a la IA que calcule su equivalencia por bloques. Podrás revisarla y aprobarla antes de añadirla.</p>
+          <form id="form-ai" class="recipe-form">
+            <div class="field">
+              <label for="ai-name">Alimento</label>
+              <input type="text" id="ai-name" placeholder="ej. hummus, kéfir, tempeh..." required />
+            </div>
+            <div class="field">
+              <label for="ai-context">Contexto (opcional)</label>
+              <input type="text" id="ai-context" placeholder="ej. marca Mercadona, versión casera..." />
+            </div>
+            <div class="actions">
+              <button type="submit" class="btn btn-primary" id="ai-submit">Consultar IA</button>
+            </div>
+          </form>
+          <div id="ai-result" class="result"></div>
+        </div>
+        <div class="result-panel">
+          <div class="equiv-header">
+            <h2>Equivalencias conocidas</h2>
+            <input type="text" id="eq-filter" placeholder="Filtrar..." />
+          </div>
+          <div id="eq-list" class="result">
+            <p class="muted">Cargando...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script src="/js/utils.js"></script>
+  <script src="/js/auth-view.js"></script>
+  <script src="/js/blocks.js"></script>
+  <script src="/js/data.js"></script>
+  <script src="/js/recipes-view.js"></script>
+  <script src="/js/validator-view.js"></script>
+  <script src="/js/adjust-view.js"></script>
+  <script src="/js/equivalences-view.js"></script>
+  <script src="/js/plan-view.js"></script>
+  <script src="/js/shopping-view.js"></script>
+  <script src="/js/log-view.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

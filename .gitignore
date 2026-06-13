@@ -1,0 +1,21 @@
+node_modules
+npm-debug.log
+*.log
+.DS_Store
+.env
+.env.*
+.vscode
+.idea
+
+# Credenciales (hash + secreto de sesión) y backups versionados: nunca en git.
+datos/auth.json
+datos/.versions
+
+# Test artifacts
+test-results
+playwright-report
+.playwright
+blob-report
+
+# Local agent/editor settings
+.claude/

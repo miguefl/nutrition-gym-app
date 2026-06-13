@@ -1,0 +1,52 @@
+# HTTPS deployment: Caddy reverse proxy (automatic TLS) in front of the app.
+# Use this instead of docker-compose.yml when you want an installable PWA.
+#
+#   cp .env.example .env     # set DOMAIN (and TLS_EMAIL, ANTHROPIC_API_KEY)
+#   docker compose -f docker-compose.https.yml up -d --build
+#
+# The app is NOT published directly; it is only reachable through Caddy on
+# 443 (HTTPS) / 80 (redirect). COOKIE_SECURE and TRUST_PROXY are set for TLS.
+services:
+  menu:
+    build: .
+    image: gimnasio-menu:latest
+    container_name: gimnasio-menu
+    environment:
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      PORT: 3000
+      HOST: 0.0.0.0
+      COOKIE_SECURE: "true"   # served over HTTPS by Caddy
+      TRUST_PROXY: "1"        # behind one reverse proxy hop
+    volumes:
+      - ./datos:/app/datos
+    expose:
+      - "3000"                # internal only; reached by Caddy over the network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: gimnasio-caddy
+    depends_on:
+      - menu
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"   # HTTP/3
+    environment:
+      DOMAIN: ${DOMAIN:?Define DOMAIN en .env (ej. menu.midominio.com)}
+      TLS_EMAIL: ${TLS_EMAIL:-}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data      # persists the TLS certificates
+      - caddy_config:/config
+    restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:

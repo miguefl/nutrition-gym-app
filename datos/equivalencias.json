@@ -1,0 +1,96 @@
+{
+  "carbohidratos": {
+    "unidad_equivalencia": "1 bloque",
+    "equivalencias": [
+      {"alimento": "arroz", "cantidad": "30 g", "estado": "crudo"},
+      {"alimento": "pasta", "cantidad": "30 g", "estado": "crudo"},
+      {"alimento": "quinoa", "cantidad": "30 g", "estado": "crudo"},
+      {"alimento": "legumbres", "cantidad": "30 g", "estado": "crudo"},
+      {"alimento": "pan", "cantidad": "40 g"},
+      {"alimento": "patata", "cantidad": "120 g", "estado": "crudo"}
+    ],
+    "reglas": [
+      "No combinar varias fuentes de carbohidrato",
+      "Mantener equivalencia exacta en gramos"
+    ]
+  },
+
+  "proteinas_magras": {
+    "unidad_equivalencia": "1 bloque",
+    "equivalencias": [
+      {"alimento": "pollo", "cantidad": "100 g"},
+      {"alimento": "pavo", "cantidad": "100 g"},
+      {"alimento": "ternera magra", "cantidad": "100 g"},
+      {"alimento": "pescado blanco", "cantidad": "120 g"},
+      {"alimento": "atun natural", "cantidad": "100 g"},
+      {"alimento": "seitán", "cantidad": "90 g"},
+      {"alimento": "lomo de cerdo magro", "cantidad": "90 g"},
+      {"alimento": "queso fresco batido 0%", "cantidad": "250 g"},
+      {"alimento": "queso fresco burgos", "cantidad": "150 g"}
+    ],
+    "reglas": [
+      "Solo intercambiar dentro del grupo magro",
+      "No sustituir por proteína grasa"
+    ]
+  },
+
+  "proteinas_grasas": {
+    "unidad_equivalencia": "1 bloque",
+    "equivalencias": [
+      {"alimento": "salmon", "cantidad": "50 g"},
+      {"alimento": "jamon serrano", "cantidad": "50 g"},
+      {"alimento": "queso curado", "cantidad": "25 g"},
+      {"alimento": "tofu", "cantidad": "100 g"},
+      {"alimento": "huevo", "cantidad": "1 unidad"}
+    ],
+    "reglas": [
+      "No intercambiar por proteína magra",
+      "Ya aportan grasa, tener en cuenta en el total"
+    ]
+  },
+
+  "grasas": {
+    "unidad_equivalencia": "1 bloque",
+    "equivalencias": [
+      {"alimento": "aceite de oliva", "cantidad": "10 g"},
+      {"alimento": "frutos secos", "cantidad": "15 g"},
+      {"alimento": "aguacate", "cantidad": "50 g"},
+      {"alimento": "mantequilla de cacahuete", "cantidad": "15 g"},
+      {"alimento": "chocolate 85%", "cantidad": "20 g"}
+    ],
+    "reglas": [
+      "No combinar varias fuentes de grasa",
+      "Usar solo una por comida"
+    ]
+  },
+
+  "fruta": {
+    "unidad_equivalencia": "1 pieza",
+    "equivalencias": [
+      {"tipo": "fruta mediana", "cantidad": "1 unidad"},
+      {"tipo": "frutas pequeñas", "cantidad": "150-200 g"}
+    ],
+    "reglas": [
+      "Consumir una vez al día (o dividir en dos tomas)",
+      "No sustituye carbohidratos principales"
+    ]
+  },
+
+  "verduras": {
+    "unidad_equivalencia": "libre",
+    "equivalencias": [
+      {"tipo": "cualquier verdura", "cantidad": "libre"}
+    ],
+    "reglas": [
+      "No afectan al plan",
+      "Se pueden añadir o quitar libremente"
+    ]
+  },
+
+  "regla_global": [
+    "No mezclar bloques entre categorías",
+    "No modificar cantidades",
+    "No añadir alimentos extra",
+    "Cumplir el total diario completo"
+  ]
+}

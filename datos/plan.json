@@ -1,0 +1,44 @@
+{
+  "lunes": {
+    "desayuno": null,
+    "comida": null,
+    "merienda": null,
+    "cena": null
+  },
+  "martes": {
+    "desayuno": null,
+    "comida": null,
+    "merienda": null,
+    "cena": null
+  },
+  "miercoles": {
+    "desayuno": null,
+    "comida": null,
+    "merienda": null,
+    "cena": null
+  },
+  "jueves": {
+    "desayuno": null,
+    "comida": null,
+    "merienda": null,
+    "cena": null
+  },
+  "viernes": {
+    "desayuno": null,
+    "comida": null,
+    "merienda": null,
+    "cena": null
+  },
+  "sabado": {
+    "desayuno": null,
+    "comida": null,
+    "merienda": null,
+    "cena": null
+  },
+  "domingo": {
+    "desayuno": null,
+    "comida": null,
+    "merienda": null,
+    "cena": null
+  }
+}
