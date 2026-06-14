@@ -9,7 +9,10 @@ ENV NODE_ENV=production \
     PORT=3000 \
     HOST=0.0.0.0
 
-RUN addgroup -S app && adduser -S -G app app
+# su-exec: lets the entrypoint start as root (to fix the data volume ownership)
+# and then drop privileges to the unprivileged app user before running Node.
+RUN apk add --no-cache su-exec \
+    && addgroup -S app && adduser -S -G app app
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY --chown=app:app package*.json server.js ./
@@ -24,7 +27,9 @@ COPY --chown=app:app docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN mkdir -p /app/datos && chown -R app:app /app/datos \
     && chmod +x /usr/local/bin/docker-entrypoint.sh
 
-USER app
+# NOTE: we intentionally do NOT set `USER app` here. The container starts as
+# root so the entrypoint can chown the mounted /app/datos volume, and then it
+# drops to the unprivileged `app` user (via su-exec) before exec'ing Node.
 EXPOSE 3000
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
