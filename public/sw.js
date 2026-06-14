@@ -1,7 +1,7 @@
 // Service worker: network-first with cache fallback.
 // Lets the user view the plan, recipes and shopping list offline (with the
 // last seen data) and makes the app installable.
-const CACHE = 'menu-v3';
+const CACHE = 'menu-v4';
 
 const PRECACHE = [
   '/',
