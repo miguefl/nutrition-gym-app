@@ -2,6 +2,11 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const config = require('../config');
 
+// Whether the app is actually served over TLS. Set COOKIE_SECURE=true when
+// behind HTTPS (e.g. the Caddy reverse proxy in docker-compose.https.yml).
+// Over plain HTTP on a LAN/VPN it stays false.
+const httpsEnabled = config.auth.cookieSecure;
+
 const securityHeaders = helmet({
   contentSecurityPolicy: {
     directives: {
@@ -14,8 +19,18 @@ const securityHeaders = helmet({
       frameAncestors: ["'none'"],
       baseUri: ["'self'"],
       formAction: ["'self'"],
+      // Helmet adds `upgrade-insecure-requests` by default, which makes the
+      // browser rewrite asset requests to https://. Over plain HTTP (LAN/VPN)
+      // there is no TLS listener, so CSS/JS fail to load and the page renders
+      // unstyled. Keep it only when actually serving over HTTPS.
+      upgradeInsecureRequests: httpsEnabled ? [] : null,
     },
   },
+  // HSTS only makes sense over HTTPS; sending it over plain HTTP is wrong (and
+  // can lock a domain into https:// in the browser). Enable it only under TLS.
+  strictTransportSecurity: httpsEnabled
+    ? { maxAge: 31536000, includeSubDomains: true }
+    : false,
 });
 
 // Basic anti-CSRF: mutating requests that arrive from a browser (with an
